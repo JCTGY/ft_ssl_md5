@@ -6,7 +6,7 @@
 /*   By: jchiang- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 18:09:02 by jchiang-          #+#    #+#             */
-/*   Updated: 2019/04/26 13:14:21 by jchiang-         ###   ########.fr       */
+/*   Updated: 2019/04/26 14:05:57 by jchiang-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int						dis_error(char *tssl, int error, char flag, char *file);
 int						mini_gnl(t_ssl *ssl, char *hash);
 int						hash_calculate(t_ssl *ssl, char *hash);
 int						ssl_md5_init(uint8_t *msg, size_t len, t_ssl *ssl);
+int						ssl_sha256_init(uint8_t *msg, size_t len, t_ssl *ssl);
 void					del_str(t_ssl *ssl);
 
 #endif

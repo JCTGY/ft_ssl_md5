@@ -13,6 +13,8 @@ ALL_SRC =  ft_ssl.c \
 		   ssl_calculate.c \
 		   ssl_md5.c \
 		   ssl_md5_help.c \
+		   ssl_sha256.c \
+		   ssl_sha256_help.c \
 
 SRC = $(addprefix $(SRC_DIR), $(ALL_SRC))
 OBJ = $(addprefix $(OBJ_DIR), $(ALL_SRC:.c=.o))
