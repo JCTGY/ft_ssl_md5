@@ -6,11 +6,17 @@
 /*   By: jchiang- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 18:56:35 by jchiang-          #+#    #+#             */
-/*   Updated: 2019/04/18 19:29:55 by jchiang-         ###   ########.fr       */
+/*   Updated: 2019/04/26 09:24:26 by jchiang-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
+
+void			del_str(t_ssl *ssl)
+{
+	ft_strdel(&ssl->msg);
+	ft_strdel(&ssl->name);
+}
 
 int				mini_gnl(t_ssl *ssl, char *hash)
 {
@@ -19,6 +25,7 @@ int				mini_gnl(t_ssl *ssl, char *hash)
 	char	*str;
 	char	buff[2];
 
+	(!(ssl->flag & SSL_P)) && (ssl->flag |= SSL_ST);
 	str = ft_strnew(1);
 	ret = 0;
 	buff[1] = '\0';
@@ -32,6 +39,7 @@ int				mini_gnl(t_ssl *ssl, char *hash)
 	}
 	ssl->name = str;
 	ssl->msg = ft_strdup(ssl->name);
+	hash_calculate(ssl, hash);
 	return (1);
 }
 
@@ -39,15 +47,19 @@ int				initiate_p(t_ssl *ssl, char *hash)
 {
 	int		stop;
 
+	ssl->flag |= SSL_P;
 	stop = ssl->p_flg;
 	while (stop)
 	{
 		if (stop == ssl->p_flg)
-			mini_gnl(ssl);
-		ft_strdel(&ssl->msg);
-		ssl->msg = ft_strdup(ssl->name);
+			mini_gnl(ssl, hash);
+		ssl->flag |= SSL_PP;
+		ssl->msg = ft_strnew(0);
+		ssl->name = 0;
 		stop -= 1;
+		(stop) && hash_calculate(ssl, hash);
 	}
+	ssl->flag ^= SSL_P;
 	return (1);
 }
 

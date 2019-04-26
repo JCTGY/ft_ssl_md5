@@ -6,7 +6,7 @@
 /*   By: jchiang- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 18:08:12 by jchiang-          #+#    #+#             */
-/*   Updated: 2019/04/18 19:29:52 by jchiang-         ###   ########.fr       */
+/*   Updated: 2019/04/26 08:36:15 by jchiang-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,8 @@ static int		allocate_sflag(char **argv, t_ssl *ssl, int i, int x)
 		ft_strcpy(ssl->name, argv[i]);
 		ssl->msg = ft_strdup(ssl->name);
 	}
-//	hash_calculate(ssl, argv[1]);
-	ft_strdel(&ssl->name);
-	ft_strdel(&ssl->msg);
+	hash_calculate(ssl, argv[1]);
+	del_str(ssl);
 	return (i);
 }
 
@@ -71,8 +70,9 @@ static int		read_msg(char **argv, t_ssl *ssl, int i)
 	int				fd;
 
 	(ssl->p_flg) && initiate_p(ssl, argv[1]);
-	(!(ssl->p_flg) && !argv[i]) && mini_gnl(ssl, argv[1]);
-	while (argv[i++])
+	(!(ssl->p_flg) && !argv[i] && !(ssl->flag & SSL_S)) &&
+		mini_gnl(ssl, argv[1]);
+	while (argv[i])
 	{
 		fd = open(argv[i], O_RDONLY);
 		if (fd == -1 && (errno == EACCES))
@@ -87,9 +87,9 @@ static int		read_msg(char **argv, t_ssl *ssl, int i)
 		read(fd, ssl->msg, buff.st_size);
 		ssl->name = ft_strdup(argv[i]);
 		close(fd);
-//		hash_calculate(ssl, argv[1]);
-		ft_strdel(&ssl->name);
-		ft_strdel(&ssl->msg);
+		hash_calculate(ssl, argv[1]);
+		del_str(ssl);
+		i++;
 	}
 	return (1);
 }

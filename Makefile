@@ -10,6 +10,9 @@ INC = -Iincludes
 
 ALL_SRC =  ft_ssl.c \
 		   ssl_help.c \
+		   ssl_calculate.c \
+		   ssl_md5.c \
+		   ssl_md5_help.c \
 
 SRC = $(addprefix $(SRC_DIR), $(ALL_SRC))
 OBJ = $(addprefix $(OBJ_DIR), $(ALL_SRC:.c=.o))
