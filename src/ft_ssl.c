@@ -6,11 +6,26 @@
 /*   By: jchiang- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 18:08:12 by jchiang-          #+#    #+#             */
-/*   Updated: 2019/04/26 08:36:15 by jchiang-         ###   ########.fr       */
+/*   Updated: 2019/04/26 13:53:30 by jchiang-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
+
+static int		ssl_stdin(t_ssl *ssl)
+{
+	char		hash[7];
+	int			ret;
+
+	ft_printf("ft_SSL> ");
+	ret = read(0, &hash, 6);
+	hash[ret - 1] = '\0';
+	if (!(check_error(hash)))
+		return (1);
+	mini_gnl(ssl, hash);
+	ssl->name = 0;
+	return (0);
+}
 
 static int		allocate_sflag(char **argv, t_ssl *ssl, int i, int x)
 {
@@ -49,7 +64,7 @@ static int		collect_flags(char **argv, t_ssl *ssl)
 			if (!ft_strchr("pqrs", argv[i][x]))
 				return (dis_error(argv[1], FLAG_ERROR, argv[i][x], 0));
 			else if (argv[i][x] == 'p')
-				ssl->p_flg += 1;
+				initiate_p(ssl, argv[1]);
 			else if (argv[i][x] == 'q')
 				ssl->flag |= SSL_Q;
 			else if (argv[i][x] == 'r')
@@ -69,7 +84,6 @@ static int		read_msg(char **argv, t_ssl *ssl, int i)
 	struct stat		buff;
 	int				fd;
 
-	(ssl->p_flg) && initiate_p(ssl, argv[1]);
 	(!(ssl->p_flg) && !argv[i] && !(ssl->flag & SSL_S)) &&
 		mini_gnl(ssl, argv[1]);
 	while (argv[i])
@@ -99,9 +113,11 @@ int				main(int argc, char **argv)
 	t_ssl	ssl;
 	int		i;
 
-	if (!check_error(argc, argv))
-		return (0);
 	ft_bzero(&ssl, sizeof(t_ssl));
+	if (argc == 1)
+		return (ssl_stdin(&ssl));
+	if (!check_error(argv[1]))
+		return (0);
 	if ((i = collect_flags(argv, &ssl)) == 0)
 		return (0);
 	if (!read_msg(argv, &ssl, i))

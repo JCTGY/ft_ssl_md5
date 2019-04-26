@@ -6,7 +6,7 @@
 /*   By: jchiang- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 19:26:21 by jchiang-          #+#    #+#             */
-/*   Updated: 2019/04/26 09:26:06 by jchiang-         ###   ########.fr       */
+/*   Updated: 2019/04/26 13:59:18 by jchiang-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static void		md5_print(t_ssl *ssl, t_md5 *md5)
 	md5_endianfix(md5);
 	if (ssl->flag & SSL_P)
 	{
-	   (!(ssl->flag & SSL_PP)) && ft_printf("%s", ssl->name);
-	   ft_printf("%08x%x%x%x\n", md5->a0, md5->b0, md5->c0, md5->d0);
-	   return ;
+		(!(ssl->flag & SSL_PP)) && ft_printf("%s", ssl->name);
+		ft_printf("%08x%x%x%x\n", md5->a0, md5->b0, md5->c0, md5->d0);
+		return ;
 	}
 	if (!(ssl->flag & SSL_R) && !(ssl->flag & SSL_ST) && !(ssl->flag & SSL_P))
 	{
@@ -28,7 +28,7 @@ static void		md5_print(t_ssl *ssl, t_md5 *md5)
 		(!(ssl->flag & SSL_Q) && !(ssl->flag & SSL_S)) &&
 			ft_printf("MD5 (%s) = ", ssl->name);
 	}
- 	ft_printf("%08x%x%x%x", md5->a0, md5->b0, md5->c0, md5->d0);
+	ft_printf("%08x%x%x%x", md5->a0, md5->b0, md5->c0, md5->d0);
 	(!(ssl->flag & SSL_R)) && ft_printf("\n");
 	if (ssl->flag & SSL_R && !(ssl->flag & SSL_ST) && !(ssl->flag & SSL_P))
 	{
@@ -60,8 +60,8 @@ static void		md5_arg(uint32_t *msg, t_md5 *md5)
 		temp = md5->d;
 		md5->d = md5->c;
 		md5->c = md5->b;
-		md5->b = md5->b + md5_left_rotate\
-				 (f + md5->a + g_md5_k[i] + msg[g_md5_m[i]], g_md5_s[i]);
+		md5->b = md5->b + md5_left_rotate(f + md5->a +\
+				g_md5_k[i] + msg[g_md5_m[i]], g_md5_s[i]);
 		md5->a = temp;
 		i++;
 	}

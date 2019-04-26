@@ -6,7 +6,7 @@
 /*   By: jchiang- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 18:09:02 by jchiang-          #+#    #+#             */
-/*   Updated: 2019/04/26 09:23:48 by jchiang-         ###   ########.fr       */
+/*   Updated: 2019/04/26 13:14:21 by jchiang-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct			s_hash
 }						t_hash;
 
 int						initiate_p(t_ssl *ssl, char *hash);
-int						check_error(int argc, char **argv);
+int						check_error(char *argv);
 int						dis_error(char *tssl, int error, char flag, char *file);
 int						mini_gnl(t_ssl *ssl, char *hash);
 int						hash_calculate(t_ssl *ssl, char *hash);

@@ -6,7 +6,7 @@
 /*   By: jchiang- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 18:56:35 by jchiang-          #+#    #+#             */
-/*   Updated: 2019/04/26 09:24:26 by jchiang-         ###   ########.fr       */
+/*   Updated: 2019/04/26 13:33:23 by jchiang-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,40 +40,33 @@ int				mini_gnl(t_ssl *ssl, char *hash)
 	ssl->name = str;
 	ssl->msg = ft_strdup(ssl->name);
 	hash_calculate(ssl, hash);
+	del_str(ssl);
 	return (1);
 }
 
 int				initiate_p(t_ssl *ssl, char *hash)
 {
-	int		stop;
-
 	ssl->flag |= SSL_P;
-	stop = ssl->p_flg;
-	while (stop)
+	ssl->p_flg += 1;
+	if (ssl->p_flg == 1)
+		mini_gnl(ssl, hash);
+	else
 	{
-		if (stop == ssl->p_flg)
-			mini_gnl(ssl, hash);
 		ssl->flag |= SSL_PP;
 		ssl->msg = ft_strnew(0);
-		ssl->name = 0;
-		stop -= 1;
-		(stop) && hash_calculate(ssl, hash);
+		hash_calculate(ssl, hash);
 	}
+	del_str(ssl);
 	ssl->flag ^= SSL_P;
 	return (1);
 }
 
-int				check_error(int argc, char **argv)
+int				check_error(char *argv)
 {
-	if (argc == 1)
+	if (!argv || (ft_strcmp(argv, "md5") && ft_strcmp(argv, "sha256")))
 	{
-		ft_printf("usage: ft_ssl command [command opts] [command args]\n");
-		return (0);
-	}
-	if (!argv[1] || (ft_strcmp(argv[1], "md5") && ft_strcmp(argv[1], "sha256")))
-	{
-		(argv[1]) &&
-			ft_printf("ft_ssl: Error: '%s' is an invalid command\n\n", argv[1]);
+		(argv) &&
+			ft_printf("ft_ssl: Error: '%s' is an invalid command\n\n", argv);
 		ft_printf("Standard commands:\n\n");
 		ft_printf("Message Digest commands:\n");
 		ft_printf("md5\nsha256\n\nCipher commands:\n");
