@@ -6,7 +6,7 @@
 /*   By: jchiang- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 13:41:04 by jchiang-          #+#    #+#             */
-/*   Updated: 2019/04/26 16:31:39 by jchiang-         ###   ########.fr       */
+/*   Updated: 2019/04/27 13:57:31 by jchiang-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ typedef struct		s_sha256
 	uint32_t		h;
 	uint32_t		t1;
 	uint32_t		t2;
-	size_t			msg_len;
-	uint8_t			*msg;
+	uint32_t		w[64];
+	size_t			set;
+	uint32_t		*msg;
 }					t_sha256;
 
 static uint32_t		g_sha256_k[64] =
@@ -61,7 +62,8 @@ static uint32_t		g_sha256_k[64] =
 
 void				sha256_addstart(t_sha256 *sha);
 void				sha256_addback(t_sha256 *sha);
+void				sha256_input(uint32_t *w, t_sha256 *sha);
 uint32_t			u32_rr(uint32_t w, uint32_t r);
-uint32_t			*sha256_input(uint32_t *w);
+uint32_t			swap_32bit(uint32_t r);
 
 #endif
