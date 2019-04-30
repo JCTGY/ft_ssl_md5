@@ -14,7 +14,11 @@ ALL_SRC =  ft_ssl.c \
 		   ssl_md5.c \
 		   ssl_md5_help.c \
 		   ssl_sha256.c \
+		   ssl_sha224.c \
 		   ssl_sha256_help.c \
+		   ssl_sha512.c \
+		   ssl_sha384.c \
+		   ssl_sha512_help.c \
 		   ssl_sha_print.c \
 
 SRC = $(addprefix $(SRC_DIR), $(ALL_SRC))

@@ -6,7 +6,7 @@
 /*   By: jchiang- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 18:56:35 by jchiang-          #+#    #+#             */
-/*   Updated: 2019/04/26 13:33:23 by jchiang-         ###   ########.fr       */
+/*   Updated: 2019/04/29 19:56:05 by jchiang-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,15 @@ int				initiate_p(t_ssl *ssl, char *hash)
 
 int				check_error(char *argv)
 {
-	if (!argv || (ft_strcmp(argv, "md5") && ft_strcmp(argv, "sha256")))
+	if (!argv || (ft_strcmp(argv, "md5") && ft_strcmp(argv, "sha256")
+				&& ft_strcmp(argv, "sha224") && ft_strcmp(argv, "sha512")
+				&& ft_strcmp(argv, "sha384")))
 	{
 		(argv) &&
 			ft_printf("ft_ssl: Error: '%s' is an invalid command\n\n", argv);
 		ft_printf("Standard commands:\n\n");
 		ft_printf("Message Digest commands:\n");
-		ft_printf("md5\nsha256\n\nCipher commands:\n");
+		ft_printf("md5\nsha224\nsha256\nsha384\nsha512\n\nCipher commands:\n");
 		return (0);
 	}
 	return (1);

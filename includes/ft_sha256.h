@@ -6,7 +6,7 @@
 /*   By: jchiang- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 13:41:04 by jchiang-          #+#    #+#             */
-/*   Updated: 2019/04/29 17:21:10 by jchiang-         ###   ########.fr       */
+/*   Updated: 2019/04/29 18:11:35 by jchiang-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void				sha256_addstart(t_sha256 *sha);
 void				sha256_addback(t_sha256 *sha);
 void				sha256_input(t_sha256 *sha, int chunck);
 void				sha256_print_help(t_sha256 *sha);
+void				sha224_print_help(t_sha256 *sha);
 uint32_t			u32_rr(uint32_t w, uint32_t r);
 uint32_t			swap_32bit(uint32_t r);
 
