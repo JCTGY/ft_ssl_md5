@@ -4,12 +4,19 @@
 42 school project we will implements cryptographic toolkit library in C without using libary.
 
 Allow funtion
+
 open
+
 close 
+
 read
+
 write
+
 malloc
+
 free
+
 
 ### Function cover
 md5
