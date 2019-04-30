@@ -6,7 +6,7 @@
 /*   By: jchiang- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 18:08:12 by jchiang-          #+#    #+#             */
-/*   Updated: 2019/04/26 13:53:30 by jchiang-         ###   ########.fr       */
+/*   Updated: 2019/04/29 17:49:50 by jchiang-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 static int		ssl_stdin(t_ssl *ssl)
 {
-	char		hash[7];
+	char		hash[10];
 	int			ret;
 
 	ft_printf("ft_SSL> ");
-	ret = read(0, &hash, 6);
+	ret = read(0, &hash, 10);
 	hash[ret - 1] = '\0';
 	if (!(check_error(hash)))
-		return (1);
+		return (ssl_stdin(ssl));
 	mini_gnl(ssl, hash);
 	ssl->name = 0;
 	return (0);

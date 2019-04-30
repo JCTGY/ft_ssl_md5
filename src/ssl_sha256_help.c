@@ -6,7 +6,7 @@
 /*   By: jchiang- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 14:10:48 by jchiang-          #+#    #+#             */
-/*   Updated: 2019/04/27 14:50:20 by jchiang-         ###   ########.fr       */
+/*   Updated: 2019/04/29 17:31:14 by jchiang-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void			sha256_addstart(t_sha256 *sha)
 {
-	sha->a = sha->h0; 
+	sha->a = sha->h0;
 	sha->b = sha->h1;
 	sha->c = sha->h2;
 	sha->d = sha->h3;
@@ -38,29 +38,27 @@ void			sha256_addback(t_sha256 *sha)
 
 uint32_t		u32_rr(uint32_t w, uint32_t r)
 {
-	return ((w >> r) | (w << (32 - r)));
+	return (((w >> r) | (w << (32 - r))));
 }
 
-void			sha256_input(uint32_t *w, t_sha256 *sha)
+void			sha256_input(t_sha256 *sha, int chunk)
 {
 	int			i;
 	uint32_t	s0;
 	uint32_t	s1;
 
-	ft_printf("%s\n", w);
-	ft_printf("---------------------\n");
-	ft_bzero(&sha->w, 64);
-	i = -1;
-	while (++i < 16)
-		sha->w[i] = w[i];
-	i = -1;
-	while (++i < 64)
+	sha->w = (uint32_t *)malloc(sizeof(uint32_t) * 64 * 8);
+	ft_bzero(sha->w, sizeof(uint32_t) * 64 * 8);
+	ft_memcpy(sha->w, &(sha->msg[16 * chunk]), 16 * 32);
+	i = 16;
+	while (i < 64)
 	{
 		s0 = (u32_rr(sha->w[i - 15], 7) ^\
-				(u32_rr(sha->w[i - 15], 18)) ^ (u32_rr(sha->w[i - 15], 3)));
+				(u32_rr(sha->w[i - 15], 18)) ^ (sha->w[i - 15] >> 3));
 		s1 = (u32_rr(sha->w[i - 2], 17) ^\
-				(u32_rr(sha->w[i - 2], 19)) ^ (u32_rr(sha->w[i - 2], 10)));
+				(u32_rr(sha->w[i - 2], 19)) ^ (sha->w[i - 2] >> 10));
 		sha->w[i] = sha->w[i - 16] + s0 + sha->w[i - 7] + s1;
+		i++;
 	}
 }
 
