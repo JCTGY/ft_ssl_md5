@@ -1,5 +1,7 @@
 # ft_ssl
 
+![](https://i.imgur.com/5gbYhtW.jpg)
+
 ### Objective
 42 school project we will implements cryptographic toolkit library in C without using libary.
 
