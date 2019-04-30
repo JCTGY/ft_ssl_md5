@@ -1,7 +1,7 @@
 # ft_ssl
 
 ### Objective
-42 school project we will implements cryptographic toolkit library in C.
+42 school project we will implements cryptographic toolkit library in C without using libary.
 
 Allow funtion
 open
