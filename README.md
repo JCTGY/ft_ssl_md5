@@ -1,4 +1,4 @@
-# ft_ssl
+# Hashing Encryption
 
 ![](https://i.imgur.com/5gbYhtW.jpg)
 
